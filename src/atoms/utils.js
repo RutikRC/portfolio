@@ -5,22 +5,31 @@ const LEFT_COLOR = "6366f1";
 const RIGHT_COLOR = "8b5cf6";
 const NUM_POINTS = 2500;
 
+const STAR_COLORS = ["#ffffff", "#ffe9c4", "#d4fbff", "#f8f8ff", "#fff5e1"]; // White, pale blue, pale yellow
+
+const calculateStarColor = () => {
+    // Randomly pick a star color
+    const randomIndex = Math.floor(Math.random() * STAR_COLORS.length);
+    return STAR_COLORS[randomIndex];
+};
+
+
 const getGradientStop = (ratio) => {
     // For outer ring numbers potentially past max radius,
     // just clamp to 0
     ratio = ratio > 1 ? 1 : ratio < 0 ? 0 : ratio;
 
     const c0 = LEFT_COLOR.match(/.{1,2}/g).map(
-    (oct) => parseInt(oct, 16) * (1 - ratio)
+        (oct) => parseInt(oct, 16) * (1 - ratio)
     );
     const c1 = RIGHT_COLOR.match(/.{1,2}/g).map(
-    (oct) => parseInt(oct, 16) * ratio
+        (oct) => parseInt(oct, 16) * ratio
     );
     const ci = [0, 1, 2].map((i) => Math.min(Math.round(c0[i] + c1[i]), 255));
     const color = ci
-    .reduce((a, v) => (a << 8) + v, 0)
-    .toString(16)
-    .padStart(6, "0");
+        .reduce((a, v) => (a << 8) + v, 0)
+        .toString(16)
+        .padStart(6, "0");
 
     return `#${color}`;
 };
@@ -50,12 +59,12 @@ export const pointsInner = Array.from(
     const y = Math.sin(randomAngle) * randomRadius;
     const z = randomFromInterval(-DEPTH, DEPTH);
 
-    const color = calculateColor(x);
+    const color = calculateStarColor(x);
 
     return {
-    idx: num,
-    position: [x, y, z],
-    color,
+        idx: num,
+        position: [x, y, z],
+        color,
     };
 });
 
@@ -73,8 +82,8 @@ export const pointsOuter = Array.from(
     const color = calculateColor(x);
 
     return {
-    idx: num,
-    position: [x, y, z],
-    color,
+        idx: num,
+        position: [x, y, z],
+        color,
     };
 });
