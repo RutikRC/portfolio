@@ -230,7 +230,7 @@ const Universe = () => {
                 style={{ height: "100vh" }}
                 className="bg-slate-900"
             >
-                <OrbitControls maxDistance={20} minDistance={10} />
+                <OrbitControls maxDistance={50} minDistance={5} />
                 <directionalLight />
                 <pointLight position={[-30, 0, -30]} power={10.0} />
 
