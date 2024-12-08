@@ -225,12 +225,17 @@ const Universe = () => {
         <div className="relative">
             <Canvas
                 camera={{
-                    position: [10, -7.5, -5],
+                    position: [20, -3.5, -3],
                 }}
                 style={{ height: "100vh" }}
                 className="bg-slate-900"
             >
-                <OrbitControls maxDistance={50} minDistance={5} />
+                <OrbitControls 
+                    maxDistance={50} 
+                    minDistance={5} 
+                    screenSpacePanning={true} 
+                    enablePan={true} 
+                />
                 <directionalLight />
                 <pointLight position={[-30, 0, -30]} power={10.0} />
 
