@@ -253,9 +253,9 @@ const Universe = () => {
                 <OrbitPath radius={12} />
                 <Planet radius={12} speed={0.2} size={1.2} color={"#FBBF24"} />
 
-                <OrbitPath radius={16} />
+                <OrbitPath radius={18} />
                 <PlanetWithMoon
-                    radius={16}
+                    radius={18}
                     speed={0.1}
                     size={1.5}
                     color={"#24defb"}
@@ -266,11 +266,11 @@ const Universe = () => {
                         color: "#e0e0df", // Moon color
                     }}
                 />
-                <OrbitPath radius={20} />
-                <Planet radius={20} speed={0.08} size={1.8} color={"#c224fb"} />
-
                 <OrbitPath radius={25} />
-                <Planet radius={25} speed={0.05} size={2} color={"#24fb85"} />
+                <Planet radius={25} speed={0.08} size={1.8} color={"#c224fb"} />
+
+                <OrbitPath radius={32} />
+                <Planet radius={32} speed={0.05} size={2} color={"#24fb85"} />
             </Canvas>
         </div>
     );
