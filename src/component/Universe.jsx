@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sphere } from "@react-three/drei";
 import * as THREE from "three";
-import createStarGeometry from "./Star";
 
 // Function to generate random positions in 3D space
 const generateRandomPoints = (count, spread) => {
@@ -16,38 +15,72 @@ const generateRandomPoints = (count, spread) => {
     }));
 };
 
+const generateStarGeometry = () => {
+  const starShape = new THREE.Shape();
+  const outerRadius = 0.05;
+  const innerRadius = 0.02;
+  const spikes = 5;
+
+  for (let i = 0; i < spikes * 2; i++) {
+      const angle = (i / (spikes * 2)) * Math.PI * 2;
+      const radius = i % 2 === 0 ? outerRadius : innerRadius;
+      starShape.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+  }
+  starShape.closePath();
+  const extrudeSettings = { depth: 0.01, bevelEnabled: false };
+  return new THREE.ExtrudeGeometry(starShape, extrudeSettings);
+};
+
 // Stars component scattered like particles
 const Stars = ({ count = 100, spread = 50 }) => {
-    const points = generateRandomPoints(count, spread);
+  const points = generateRandomPoints(count, spread);
 
-    return (
-        <group>
-            {points.map((point, index) => (
-                <mesh key={index} position={point.position}>
-                    <Sphere args={[0.05, 8, 8]}>
-                        <meshStandardMaterial
-                            emissive={point.color}
-                            emissiveIntensity={1}
-                            color={point.color}
-                        />
-                    </Sphere>
-                </mesh>
-            ))}
-        </group>
-    );
+  return (
+      <group>
+          {points.map((point, index) => {
+              const isStar = Math.random() > 0.5; // 50% chance to choose star shape
+              const geometry = isStar ? generateStarGeometry() : new THREE.SphereGeometry(0.05, 8, 8);
+
+              return (
+                  <mesh key={index} position={point.position} geometry={geometry}>
+                      <meshStandardMaterial
+                          emissive={point.color}
+                          emissiveIntensity={1}
+                          color={point.color}
+                      />
+                  </mesh>
+              );
+          })}
+      </group>
+  );
 };
 
 // Sun component
 const Sun = () => {
-    return (
-        <group>
-            <Sphere args={[2, 64, 64]}>
-                <meshStandardMaterial emissive="#FFDD44" emissiveIntensity={1.5} roughness={0.1} />
-            </Sphere>
-            <pointLight intensity={2} position={[0, 0, 0]} />
-        </group>
-    );
+  const sphereRef = useRef();
+  const [intensity, setIntensity] = useState(1.5); // Emissive intensity state
+
+  useFrame(() => {
+      // Animate the emissive intensity to simulate a flame effect
+      setIntensity(1.5 + Math.sin(Date.now() * 0.005) * 0.5); // Pulsating effect
+  });
+
+  return (
+      <group>
+          <Sphere ref={sphereRef} args={[2, 64, 64]}>
+              <meshStandardMaterial
+                  emissive="#FFDD44"
+                  emissiveIntensity={intensity} // Apply dynamic intensity
+                  roughness={0.1}
+                  color="#FFDD44"
+                  metalness={0.5}
+              />
+          </Sphere>
+          <pointLight intensity={intensity * 2} position={[0, 0, 0]} /> {/* Glowing light */}
+      </group>
+  );
 };
+
 
 // Orbit Path
 const OrbitPath = ({ radius }) => {
@@ -88,7 +121,7 @@ const Planet = ({ radius, speed, size, color }) => {
     );
 };
 
-// Function to create a Milky Way-like galaxy
+// Function to create a Milky Way-like galaxy with stars and circles
 const MilkyWay = ({ starCount = 1000, innerRadius = 10, outerRadius = 50 }) => {
   const points = [];
   const ref = useRef();
@@ -161,10 +194,10 @@ const Universe = () => {
                 <Planet radius={16} speed={0.1} size={1.5} color={"#24defb"} />
 
                 <OrbitPath radius={20} />
-                <Planet radius={20} speed={0.09} size={1.8} color={"#c224fb"} />
+                <Planet radius={20} speed={0.08} size={1.8} color={"#c224fb"} />
 
                 <OrbitPath radius={25} />
-                <Planet radius={25} speed={0.08} size={2} color={"#24fb85"} />
+                <Planet radius={25} speed={0.05} size={2} color={"#24fb85"} />
             </Canvas>
         </div>
     );
