@@ -111,7 +111,7 @@ const Sun = () => {
                         position: "fixed", // Fix position relative to the viewport
                         top: "50%", // Center vertically
                         left: 0,
-                        width: "300px", // Full-width background
+                        width: "400px", // Full-width background
                         backgroundColor: "rgba(255, 255, 255, 0.9)", // Light background
                         padding: "20px",
                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)", // Subtle shadow for pop-out effect
