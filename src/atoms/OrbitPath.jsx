@@ -17,7 +17,7 @@ const OrbitPath = ({ radius }) => {
 
     return (
         <line geometry={orbitGeometry}>
-            <lineBasicMaterial attach="material" color="#4B5563" linewidth={2} />
+            <lineBasicMaterial attach="material" color="#292c31" linewidth={0.5} />
         </line>
     );
 };
