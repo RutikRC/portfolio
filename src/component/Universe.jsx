@@ -33,13 +33,13 @@ const Universe = () => {
         <div className="relative">
             <Canvas
                 camera={{
-                    position: [20, -3.5, -3],
+                    position: [50, -8.5, -5],
                 }}
                 style={{ height: "100vh" }}
                 className="bg-slate-900"
             >
                 <OrbitControls 
-                    maxDistance={50} 
+                    maxDistance={100} 
                     minDistance={5} 
                     screenSpacePanning={true} 
                     enablePan={true} 
@@ -57,18 +57,18 @@ const Universe = () => {
                 <Sun />
 
                 {/* Add multiple planets with orbits */}
-                <OrbitPath radius={5} />
-                <Planet radius={5} speed={0.5} size={0.5} color={"#6B7280"} />
+                <OrbitPath radius={25} />
+                <Planet radius={25} speed={0.5} size={0.8} color={"#6B7280"} />
 
-                <OrbitPath radius={8} />
-                <Planet radius={8} speed={0.3} size={0.8} color={"#10B981"} />
+                <OrbitPath radius={30} />
+                <Planet radius={30} speed={0.3} size={1.1} color={"#10B981"} />
 
-                <OrbitPath radius={12} />
-                <Planet radius={12} speed={0.2} size={1.2} color={"#FBBF24"} />
+                <OrbitPath radius={35} />
+                <Planet radius={35} speed={0.2} size={1.2} color={"#FBBF24"} />
 
-                <OrbitPath radius={18} />
+                <OrbitPath radius={45} />
                 <PlanetWithMoon
-                    radius={18}
+                    radius={45}
                     speed={0.1}
                     size={1.5}
                     color={"#24defb"}
@@ -79,11 +79,11 @@ const Universe = () => {
                         color: "#e0e0df", // Moon color
                     }}
                 />
-                <OrbitPath radius={25} />
-                <Planet radius={25} speed={0.08} size={1.8} color={"#c224fb"} />
+                <OrbitPath radius={55} />
+                <Planet radius={55} speed={0.08} size={1.8} color={"#c224fb"} />
 
-                <OrbitPath radius={32} />
-                <Planet radius={32} speed={0.05} size={2} color={"#24fb85"} />
+                <OrbitPath radius={70} />
+                <Planet radius={70} speed={0.05} size={2} color={"#24fb85"} />
             </Canvas>
         </div>
     );
