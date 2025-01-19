@@ -35,6 +35,7 @@ import Jupiter from "../atoms/Jupiter";
 import Saturn from "../atoms/Saturn";
 import Uranus from "../atoms/Uranus";
 import Neptune from "../atoms/Neptune";
+import EarthWithMoon from "../atoms/EarthWithMoon";
 
 const Universe = () => {
     return (
@@ -78,13 +79,17 @@ const Universe = () => {
                 />
 
                 <OrbitPath radius={35} />
-                <Earth
-                    radius={35}
-                    speed={0.3}
-                    size={1.5}
-                    orbitRadius={35}
+                <EarthWithMoon
+                    radius={35}        
+                    speed={0.2}       
+                    size={2}          
+                    moonProps={{
+                        radius: 4,     
+                        speed: 0.6,    
+                        size: 0.5,     
+                    }}
                 />
-                
+
                 <OrbitPath radius={45} />
                 <Mars
                     radius={45}
